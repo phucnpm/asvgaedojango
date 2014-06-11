@@ -1,0 +1,14 @@
+//>>built
+define("dojango/widget/ThumbnailPicker",["dojo","dijit","dojox","dojo/require!dojox/image/ThumbnailPicker"],function(_1,_2,_3){
+_1.provide("dojango.widget.ThumbnailPicker");
+_1.require("dojox.image.ThumbnailPicker");
+dojango.widget._thumbNailPicker={reset:_3.image.ThumbnailPicker.prototype.reset};
+_1.declare("dojango.widget.ThumbnailPicker",_3.image.ThumbnailPicker,{setDataStore:function(_4,_5,_6){
+this._reset();
+this.inherited(arguments);
+},reset:function(){
+_1.forEach(this._thumbs,function(_7){
+_1.removeClass(_7,"imgSelected");
+});
+},_reset:dojango.widget._thumbNailPicker.reset});
+});

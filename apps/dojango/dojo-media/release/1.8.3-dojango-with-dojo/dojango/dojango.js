@@ -1,0 +1,16 @@
+//>>built
+define("dojango/dojango",["dojo","dijit","dojox","dojo/require!dojango/_base"],function(_1,_2,_3){
+_1.provide("dojango.dojango");
+dojango.registerModulePath=function(_4,_5,_6){
+if(_1.config.useXDomain){
+_1.registerModulePath(_4,_5.substring(1));
+}else{
+if(dojangoConfig.isLocalBuild){
+_1.registerModulePath(_4,"../"+_4);
+}else{
+_1.registerModulePath(_4,_6);
+}
+}
+};
+_1.require("dojango._base");
+});
