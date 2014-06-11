@@ -1,0 +1,220 @@
+{% extends "dojango/base.html" %}
+
+{# setting the <title> attribute #}
+{% block dojango_page_title %}My first dojo page{% endblock %}
+{% block dojango_header_extra %}
+<style type="text/css">
+
+</style>
+
+<script type="text/javascript">
+
+
+// Section1
+require(["dojo/fx", "dojo/_base/fx", "dojo/dom", "dojo/dom-style", "dojo/on", "dojo/domReady!"],
+function(coreFx, baseFx, dom, style, on){
+  style.set("basicNode1", "opacity", "0");
+  style.set("basicNode2", "height", "0px");
+
+  on(dom.byId("basicButton"), "click", function(){
+    style.set("basicNode1", "opacity", "0");
+    style.set("basicNode2", "height", "0px");
+    style.set("basicNode2", "display", "none");
+    coreFx.chain([
+      baseFx.fadeIn({
+        node: "basicNode1",
+        duration: 2000
+      }),
+      coreFx.wipeIn({
+        node: "basicNode2",
+        duration: 2000
+      })
+    ]).play();
+  });
+});
+
+
+// Section2
+require(["dojo/_base/fx", "dojo/fx/easing", "dojo/on", "dojo/dom", "dojo/dom-prop", "dojo/dom-style",
+    "dojo/domReady!"],
+function(baseFx, easing, on, dom, domProp, style){
+  on(dom.byId("moveButton"), "click", function(){
+    style.set("moveableNode", "marginLeft", "0px");
+    var easeType = domProp.get("easingSelector", "value"),
+        ef = easing[easeType];
+    if(ef){
+      baseFx.animateProperty({
+        node: "moveableNode",
+        properties: {
+          marginLeft: {
+            start: 0,
+            end: 400,
+            unit: "px"
+          }
+        },
+        easing: ef,
+        duration: 5000
+      }).play();
+    }
+  });
+});
+
+
+// Section3
+require(["dojo/fx/Toggler", "dojo/fx", "dojo/dom", "dojo/on", "dojo/domReady!"],
+function(Toggler, coreFx, dom, on){
+  var toggler = new Toggler({
+    node: "basicNode",
+    showFunc: coreFx.wipeIn,
+    hideFunc: coreFx.wipeOut
+  });
+  on(dom.byId("hideButton"), "click", function(e){
+    toggler.hide();
+  });
+  on(dom.byId("showButton"), "click", function(e){
+    toggler.show();
+  });
+});
+
+
+// Section4
+dojo.require("dijit.form.Button");
+dojo.require("dojo.fx");
+dojo.require("dojo.fx.easing");
+function basicCombine(){
+   // Function linked to the button to trigger the effects.
+   function combineIt(){
+
+      // Fade the node out, then in
+      var displayAnim = dojo.fx.chain([
+        dojo.fadeOut({node: "basicNode1", duration: 1000}),
+        dojo.fadeIn({node: "basicNode1", duration: 1000})
+      ]);
+
+      // Move the node while it's fading out and in.
+      var moveAnim = dojo.fx.chain([
+        dojo.animateProperty({node: "basicNode1",
+          properties: {
+            marginLeft: {start: 0, end: 400, unit: "px"}
+          },
+          duration: 1000,
+          easing: dojo.fx.easing.backOut
+        }),
+        dojo.animateProperty({node: "basicNode1",
+          properties: {
+            marginLeft: {start: 400, end: 0, unit: "px"}
+          },
+          duration: 1000,
+          easing: dojo.fx.easing.backOut
+        })
+      ]);
+
+      // Resize and change color of the node as it moves too.
+      var resizeColorAnim = dojo.fx.chain([
+        dojo.animateProperty({node: "basicNode1",
+          properties: {
+            width: {start: 100, end: 200, unit: "px"},
+            height: {start: 100, end: 200, unit: "px"},
+            backgroundColor: {start: "red", end: "green"}
+          },
+          duration: 1000
+        }),
+        dojo.animateProperty({node: "basicNode1",
+          properties: {
+            width: {start: 200, end: 100, unit: "px"},
+            height: {start: 200, end: 100, unit: "px"},
+            backgroundColor: {start: "green", end: "red"}
+          },
+          duration: 1000
+        })
+      ]);
+
+
+      // Combine the three sets of animations into one that runs in parallel.
+      var combinedAnim = dojo.fx.combine([displayAnim, moveAnim, resizeColorAnim]);
+
+      // Set it so that every time it ends, it runs again. (And connect the stop action to it!)
+      var handle = dojo.connect(combinedAnim, "onEnd", function(){combineIt();});
+      dojo.connect(dijit.byId("endButton"), "onClick", function(){dojo.disconnect(handle);});
+
+      // Run it!
+      combinedAnim.play();
+   }
+   dojo.connect(dijit.byId("startButton"), "onClick", combineIt);
+}
+dojo.ready(basicCombine);
+
+</script>
+
+{% endblock %}
+{% block dojango_content %}
+
+
+    Section1
+  <button type="button" id="basicButton">Fade and Wipe in Nodes!!</button>
+<div id="basicNode1" style="width: 100px; height: 100px; background-color: red;"></div>
+<br>
+<div id="basicNode2" style="width: 100px; background-color: green; display: none;">
+  <b>Some random text in a node to wipe in.</b>
+</div>
+
+
+
+    <hr/>
+    Section2
+    <select id="easingSelector">
+  <option>linear</option>
+  <option>quadIn</option>
+  <option>quadOut</option>
+  <option>quadInOut</option>
+  <option>cubicIn</option>
+  <option>cubicOut</option>
+  <option>cubicInOut</option>
+  <option>quartIn</option>
+  <option>quartOut</option>
+  <option>quartInOut</option>
+  <option>quintIn</option>
+  <option>quintOut</option>
+  <option>quintInOut</option>
+  <option>sineIn</option>
+  <option>sineOut</option>
+  <option>sineInOut</option>
+  <option>expoIn</option>
+  <option>expoOut</option>
+  <option>expoInOut</option>
+  <option>circIn</option>
+  <option>circOut</option>
+  <option>circInOut</option>
+  <option>backIn</option>
+  <option>backOut</option>
+  <option>backInOut</option>
+  <option>elasticIn</option>
+  <option>elasticOut</option>
+  <option>elasticInOut</option>
+  <option>bounceIn</option>
+  <option>bounceOut</option>
+  <option>bounceInOut</option>
+</select>
+<button type="button" id="moveButton">Move the div!</button>
+<div id="moveableNode" style="width: 100px; height: 100px; background-color: red; margin-left: 0px;"></div>
+
+
+
+<hr/>
+Section3
+<button type="button" id="hideButton">Hide the node! </button>
+<button type="button" id="showButton">Show the node! </button>
+<div id="basicNode" style="width: 200px; background-color: red;">
+  <b>This is a container of random content to toggle!</b>
+</div>
+
+
+
+<hr/>
+    Section4
+    <button data-dojo-type="dijit/form/Button" id="startButton">Start the complex loop!</button>
+<button data-dojo-type="dijit/form/Button" id="endButton">End the complex loop!</button>
+
+
+
+{% endblock %}

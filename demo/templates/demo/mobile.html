@@ -1,0 +1,80 @@
+{% extends "demo/mybase.html" %}
+
+{% block my_page_title %}My page's title{% endblock %}
+
+{% block my_header_stylesheet %}
+    <!-- stylesheet will go here -->
+{% endblock %}
+
+{% block my_header_script %}
+
+    <script>
+
+        <!-- dojo/javascript will go here -->
+        // Load the widget parser and mobile base
+        require(["dojox/mobile/parser", "dojox/mobile/deviceTheme", "dojox/mobile/compat", "dojox/mobile"],
+                function(parser, deviceTheme) {
+
+                    // Parse the page for widgets!
+                    parser.parse();
+                }
+        );
+
+    </script>
+
+{% endblock %}
+
+{% block my_body %}
+
+    <!-- application will go here -->
+    <div id="general" data-dojo-type="dojox.mobile.View">
+        <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props="back:'Settings', moveTo:'settings'">
+            General
+        </h1>
+        <ul data-dojo-type="dojox.mobile.RoundRectList">
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="moveTo:'about'">
+                About
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText: '2h 40m', moveTo: 'about'">
+                Usage
+            </li>
+        </ul>
+    </div>
+
+    <div id="about" data-dojo-type="dojox.mobile.View">
+        <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props="back:'General', moveTo:'general'">
+            About
+        </h1>
+        <h2 data-dojo-type="dojox.mobile.RoundRectCategory">Generic Mobile Device</h2>
+        <ul data-dojo-type="dojox.mobile.RoundRectList">
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'AcmePhone'">
+                Network
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'AcmePhone'">
+                Line
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'1024'">
+                Songs
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'10'">
+                Videos
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'96'">
+                Photos
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'2'">
+                Applications
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'29.3 BG'">
+                Capacity
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'28.0 BG'">
+                Available
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props="rightText:'3.0 (7A341)'">
+                Version
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

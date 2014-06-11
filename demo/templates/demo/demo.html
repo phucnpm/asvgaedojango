@@ -27,6 +27,7 @@
         overflow: hidden;
     }
 </style>
+
 <script type="text/javascript">
     // load the modules you need on the page!
     dojo.require("dijit.form.Button");
@@ -47,13 +48,17 @@
         });
     });
 </script>
+
 {% endblock %}
 {% block dojango_content %}
+
 <button dojoType="dijit.form.Button" onClick="textBigger.play();">Text Embiggen</button>
 <button dojoType="dijit.form.Button" onClick="textSmaller.play();">Text UnEmbiggen</button>
+
 <div id="animDiv" class="box">
 <p>
 Hello Dojango
 </p>
 </div>
+
 {% endblock %}

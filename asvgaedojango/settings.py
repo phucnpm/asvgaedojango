@@ -156,3 +156,7 @@ LOGGING = {
     }
 }
 
+# Config Dojango
+# For detail, see https://github.com/klipstein/dojango/wiki/Configuration
+DOJANGO_DOJO_VERSION = '1.9.0'
+

@@ -16,5 +16,8 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^dojango/', include('apps.dojango.urls')),
-    url(r'^$', 'demo.views.demo', name='demoview'),
+    url(r'^demo/', 'demo.views.demo', name='demo'),
+    url(r'^demo_modern/', 'demo.views.demo_modern', name='demo_modern'),
+    url(r'^mobile', 'demo.views.demo_mobile', name='mobile'),
+    url(r'^$', 'demo.views.index', name='index'),
 )
